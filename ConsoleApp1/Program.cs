@@ -1,42 +1,55 @@
 ﻿using System;
 
 List<string> toDo = new List<string>();
+bool doLoop = true;
 
-while (true)
+while (doLoop)
 {
-    Console.Clear();
-    Console.WriteLine("--Todo-List--");
-    Console.WriteLine("-------------");
-    foreach (string item in toDo) {
-        Console.WriteLine(item);
-    }
-    Console.Write("Enter todo item (Write DONE to quit): ");
+    ShowList(toDo);
+    Console.WriteLine("");
+    Console.Write("Enter todo item (Write help for commands): ");
     
     var todoItem = Console.ReadLine();
 
-    if (todoItem == "DONE")
+    switch (todoItem)
     {
-        break;
+        case "done":
+            doLoop = false;
+            break;
+        case "sort":
+            toDo.Sort();
+            break;
+        case "help":
+            Console.Clear();
+            Console.WriteLine("       Commands");
+            Console.WriteLine("-------------------------");
+            Console.WriteLine(" Help - Show this text.");
+            Console.WriteLine(" Sort - Sort the list.");
+            Console.WriteLine(" Done - Finish the list.");
+            Console.WriteLine(" ------------------------");
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
+            break;
+        default:
+            toDo.Add(todoItem);
+            break;
     }
+}
 
-    if (todoItem == "SORT")
-    {
-        toDo.Sort();
-    }
-    else
-    {
-        toDo.Add(todoItem);
-    }
-}
-Console.Clear();
-Console.WriteLine("--Todo-List--");
-Console.WriteLine("-------------");
-int i = 0;
-foreach (string item in toDo)
-{
-    i++;
-    Console.Write(i + ": ");
-    Console.WriteLine(item);
-}
+ShowList(toDo);
+Console.WriteLine(" ------------------------");
 Console.ReadKey();
 
+static void ShowList(List<string> toDo)
+{
+    int i = 0;
+    Console.Clear();
+    Console.WriteLine("--Todo-List--");
+    Console.WriteLine("-------------");
+    i = 0;
+    foreach (string item in toDo)
+    {
+        i++;
+        Console.WriteLine($" {i}: {item}");
+    }
+}
