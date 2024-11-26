@@ -1,64 +1,63 @@
 ﻿using System;
 
-List<string> toDo = new List<string>();
+List<string> shoppingList = new List<string>();
 bool doLoop = true;
 
 while (doLoop)
 {
-    ShowList(toDo);
+    ShowList(shoppingList);
     Console.WriteLine("");
-    Console.Write("Enter todo item (Write help for commands): ");
+    Console.Write("Enter item (Write help for commands): ");
     
-    string todoItem = Console.ReadLine().Trim();
+    string shoppingListItem = Console.ReadLine().Trim();
 
-    switch (todoItem.ToLower())
+    switch (shoppingListItem.ToLower())
     {
         case "done":
             doLoop = false;
             break;
         case "sort":
-            toDo.Sort();
+            shoppingList.Sort();
             break;
         case "help":
             ShowHelp();
             break;
         case "delete":
-            DeleteItem(toDo);
+            DeleteItem(shoppingList);
             break;
         default:
-            toDo.Add(todoItem);
+            shoppingList.Add(shoppingListItem);
             break;
     }
 }
 
-ShowList(toDo);
-Console.WriteLine(" ------------------------");
+ShowList(shoppingList);
 Console.ReadKey();
 
-static void ShowList(List<string> toDo)
+void ShowList(List<string> shoppingList)
 {
     int i = 0;
     Console.Clear();
-    Console.WriteLine("-------Todo List--------");
-    Console.WriteLine("------------------------");
+    Console.WriteLine("-------ShoppingList-----");
     i = 0;
-    foreach (string item in toDo)
+    foreach (string item in shoppingList)
     {
         i++;
         Console.WriteLine($" {i}: {item}");
     }
+    Console.WriteLine("------------------------");
 }
 
-static void DeleteItem(List<string> toDo)
+void DeleteItem(List<string> shoppingList)
 {
     Console.Write("Enter number of item to remove: ");
     string removeItem = Console.ReadLine();
     bool isANumber = int.TryParse(removeItem, out int value);
     if (isANumber)
     {
-        if ((value - 1) < toDo.Count() && value > 0)
+        if ((value - 1) < shoppingList.Count() && value > 0)
         {
-            toDo.RemoveAt(value - 1);
+            shoppingList.RemoveAt(value - 1);
         }
         else
         {
@@ -73,7 +72,7 @@ static void DeleteItem(List<string> toDo)
     }
 }
 
-static void ShowHelp()
+void ShowHelp()
 {
     Console.Clear();
     Console.WriteLine("       Commands");
